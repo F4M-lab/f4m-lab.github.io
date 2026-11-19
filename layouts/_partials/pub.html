@@ -6,5 +6,5 @@
 <li class="pub">
   {{ with $authors }}<span class="pub__authors">{{ . | safeHTML }}</span>{{ end }}
   <span class="pub__title">{{ if $href }}<a href="{{ $href }}">{{ .title }}</a>{{ else }}{{ .title }}{{ end }}</span>
-  <span class="pub__venue">{{ with .journal }}<em>{{ . }}</em> {{ end }}{{ with .year }}({{ . }}){{ end }}{{ with .doi }}. doi:{{ . }}{{ end }}</span>
+  <span class="pub__venue">{{ with .journal }}<em>{{ . }}</em> {{ end }}{{ if eq (.type | default "") "preprint" }}preprint {{ end }}{{ with .year }}({{ . }}){{ end }}{{ with .doi }}. doi:{{ . }}{{ end }}</span>
 </li>

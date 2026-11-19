@@ -7,7 +7,7 @@
 {{- end -}}
 {{- range hugo.Data.publications_orcid -}}
   {{- if not (and .doi (in $dois (lower .doi))) -}}
-    {{- $items = $items | append (dict "title" .title "authors" .authors "journal" .journal "year" (int (.year | default 0)) "doi" .doi "url" .url) -}}
+    {{- $items = $items | append (dict "title" .title "authors" .authors "journal" .journal "year" (int (.year | default 0)) "doi" .doi "url" .url "type" (.type | default "")) -}}
   {{- end -}}
 {{- end -}}
 {{- return $items -}}
