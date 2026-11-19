@@ -1,0 +1,437 @@
+# Konfiguration der Eingabemaske (Pages CMS, https://pagescms.org)
+# Legt fest, welche Formulare und Felder es gibt. Die Website selbst ist auf Englisch,
+# die Bedienoberfläche auf Deutsch.
+
+media:
+  input: static/images
+  output: /images
+  rename: safe
+  categories: [image]
+
+content:
+  - name: people
+    label: Mitarbeiter
+    type: collection
+    path: content/people
+    exclude: [_index.md]
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: title
+      fields: [title, role]
+      sort: [weight, title]
+      default:
+        sort: weight
+        order: asc
+    fields:
+      - name: title
+        label: Name
+        type: string
+        required: true
+      - name: role
+        label: Gruppe
+        description: Bestimmt, unter welcher Überschrift die Person auf der Team-Seite erscheint.
+        type: select
+        required: true
+        options:
+          values: [Group leader, Postdoc, PhD student, Master student, Student assistant, Technician, Visiting researcher, Alumni]
+      - name: position
+        label: Funktion (wird angezeigt)
+        description: "z. B. PhD candidate, SusFoMa project"
+        type: string
+      - name: topic
+        label: Thema (wird im Profil angezeigt)
+        description: "z. B. Chitin–protein composites. Bei Masterarbeiten leer lassen – Themen von Masterarbeiten stehen nicht auf der Website."
+        type: string
+      - name: photo
+        label: Profilbild
+        description: Quadratisches Foto, mindestens 600 × 600 Pixel.
+        type: image
+        options:
+          path: static/images/people
+          extensions: [jpg, jpeg, png, webp]
+      - name: email
+        label: E-Mail
+        type: string
+      - name: phone
+        label: Telefon
+        type: string
+      - name: orcid
+        label: ORCID-iD
+        description: "Nur die Nummer, z. B. 0000-0002-1825-0097"
+        type: string
+      - name: website
+        label: Weitere Webseite (z. B. LinkedIn, Google Scholar)
+        type: string
+      - name: research_areas
+        label: Forschungsbereiche
+        description: Die Person erscheint automatisch auf den Seiten dieser Bereiche.
+        type: reference
+        options:
+          collection: research
+          multiple: true
+          value: "{path}"
+          label: "{title}"
+      - name: projects
+        label: Projekte
+        description: Die Person erscheint automatisch auf den Seiten dieser Projekte.
+        type: reference
+        options:
+          collection: projects
+          multiple: true
+          value: "{path}"
+          label: "{acronym} {title}"
+      - name: weight
+        label: Reihenfolge
+        description: Kleinere Zahl = weiter vorne innerhalb der Gruppe.
+        type: number
+      - name: body
+        label: Kurzbiografie
+        type: rich-text
+
+  - name: news
+    label: News
+    type: collection
+    path: content/news
+    exclude: [_index.md]
+    format: yaml-frontmatter
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      primary: title
+      fields: [title, date]
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Titel
+        type: string
+        required: true
+      - name: date
+        label: Datum
+        type: date
+        required: true
+      - name: summary
+        label: Kurztext (1–2 Sätze für die Übersicht)
+        type: text
+      - name: image
+        label: Bild
+        type: image
+        options:
+          path: static/images/news
+          extensions: [jpg, jpeg, png, webp]
+      - name: research_areas
+        label: Forschungsbereiche
+        description: Die Meldung erscheint auch auf den Seiten dieser Bereiche.
+        type: reference
+        options:
+          collection: research
+          multiple: true
+          value: "{path}"
+          label: "{title}"
+      - name: projects
+        label: Projekte
+        type: reference
+        options:
+          collection: projects
+          multiple: true
+          value: "{path}"
+          label: "{acronym} {title}"
+      - name: people
+        label: Beteiligte Personen
+        description: Die Meldung erscheint auch auf den Profilen dieser Personen.
+        type: reference
+        options:
+          collection: people
+          multiple: true
+          value: "{path}"
+          label: "{title}"
+      - name: body
+        label: Text
+        type: rich-text
+
+  - name: projects
+    label: Projekte
+    type: collection
+    path: content/projects
+    exclude: [_index.md]
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: title
+      fields: [acronym, title, funder]
+      sort: [weight, title]
+      default:
+        sort: weight
+        order: asc
+    fields:
+      - name: acronym
+        label: Akronym
+        type: string
+      - name: title
+        label: Projekttitel
+        type: string
+        required: true
+      - name: summary
+        label: Kurzbeschreibung (1–2 Sätze)
+        type: text
+        required: true
+      - name: funder
+        label: Fördergeber
+        description: "z. B. Austrian Research Promotion Agency (FFG)"
+        type: string
+        required: true
+      - name: funder_url
+        label: Link zum Fördergeber
+        type: string
+      - name: funding_note
+        label: Förderhinweis (optional, ausführlich)
+        description: "z. B. Programm, Ministerium – so wie vom Fördergeber verlangt"
+        type: text
+      - name: grant_id
+        label: Projektnummer / Grant-ID
+        type: string
+      - name: logo
+        label: Logo des Fördergebers
+        type: image
+        options:
+          path: static/images/logos
+          extensions: [png, jpg, jpeg, svg, webp]
+      - name: start
+        label: Beginn
+        type: date
+      - name: end
+        label: Ende
+        type: date
+      - name: partners
+        label: Partner
+        type: text
+      - name: link
+        label: Link zur Projektseite (BOKU, Fördergeber …)
+        type: string
+      - name: image
+        label: Bild (optional)
+        type: image
+        options:
+          path: static/images/projects
+          extensions: [jpg, jpeg, png, webp]
+      - name: research_areas
+        label: Forschungsbereiche
+        type: reference
+        options:
+          collection: research
+          multiple: true
+          value: "{path}"
+          label: "{title}"
+      - name: weight
+        label: Reihenfolge
+        type: number
+      - name: body
+        label: Projektbeschreibung
+        type: rich-text
+
+  - name: research
+    label: Forschungsbereiche
+    type: collection
+    path: content/research
+    exclude: [_index.md]
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: title
+      sort: [weight, title]
+      default:
+        sort: weight
+        order: asc
+    fields:
+      - name: title
+        label: Name des Bereichs
+        type: string
+        required: true
+      - name: summary
+        label: Kurzbeschreibung (1 Satz)
+        type: text
+        required: true
+      - name: image
+        label: Bild (optional)
+        type: image
+        options:
+          path: static/images/research
+          extensions: [jpg, jpeg, png, webp]
+      - name: weight
+        label: Reihenfolge
+        type: number
+      - name: body
+        label: Ausführliche Beschreibung
+        type: rich-text
+
+  - name: publications
+    label: Publikationen (zusätzlich zu ORCID)
+    type: collection
+    path: content/publications
+    exclude: [_index.md]
+    format: yaml-frontmatter
+    filename: "{year}-{primary}.md"
+    view:
+      primary: title
+      fields: [title, year]
+      sort: [year, title]
+      default:
+        sort: year
+        order: desc
+    fields:
+      - name: title
+        label: Titel
+        type: string
+        required: true
+      - name: authors
+        label: Autor*innen
+        description: "z. B. Lastname A., Lastname B., Beaumont M."
+        type: string
+      - name: journal
+        label: Zeitschrift
+        type: string
+      - name: year
+        label: Jahr
+        type: number
+        required: true
+      - name: doi
+        label: DOI
+        description: "Nur die DOI, z. B. 10.1039/d5cc01234a – der Link wird automatisch erzeugt."
+        type: string
+      - name: url
+        label: Link (falls keine DOI)
+        type: string
+      - name: research_areas
+        label: Forschungsbereiche
+        type: reference
+        options:
+          collection: research
+          multiple: true
+          value: "{path}"
+          label: "{title}"
+
+  - name: site
+    label: Einstellungen & Startseite
+    type: file
+    path: data/site.yml
+    format: yaml
+    fields:
+      - name: name
+        label: Name der Gruppe
+        type: string
+      - name: short_name
+        label: Kurzname (Logo)
+        type: string
+      - name: group_leader
+        label: Gruppenleitung
+        type: string
+      - name: tagline
+        label: Leitsatz (groß auf der Startseite)
+        type: text
+      - name: intro
+        label: Einleitungstext Startseite
+        type: text
+      - name: institute
+        label: Institut
+        type: string
+      - name: institute_url
+        label: Link zum Institut
+        type: string
+      - name: university
+        label: Universität
+        type: string
+      - name: address
+        label: Adresse
+        type: text
+      - name: email
+        label: Kontakt-E-Mail
+        type: string
+      - name: orcid
+        label: ORCID-iD der Gruppenleitung
+        description: Publikationen dieser ORCID-iD werden jeden Montag automatisch auf die Website übernommen.
+        type: string
+      - name: scholar_url
+        label: Link zum Google-Scholar-Profil
+        type: string
+      - name: open_positions
+        label: Text „Join the group“ (leer lassen zum Ausblenden)
+        type: text
+      - name: legal_notice
+        label: Impressum
+        type: text
+      - name: privacy
+        label: Datenschutzerklärung (Seite „Legal notice and privacy“)
+        description: Vor dem Live-Gang mit den BOKU-Vorgaben abgleichen.
+        type: text
+
+  - name: pages
+    label: Seitentexte (Überschrift und Einleitung)
+    type: group
+    items:
+      - name: page_research
+        label: Research
+        type: file
+        path: content/research/_index.md
+        format: yaml-frontmatter
+        fields:
+          - name: title
+            label: Seitentitel
+            type: string
+            required: true
+          - name: intro
+            label: Einleitung (1–2 Sätze unter dem Titel)
+            type: text
+      - name: page_projects
+        label: Projects
+        type: file
+        path: content/projects/_index.md
+        format: yaml-frontmatter
+        fields:
+          - name: title
+            label: Seitentitel
+            type: string
+            required: true
+          - name: intro
+            label: Einleitung (1–2 Sätze unter dem Titel)
+            type: text
+      - name: page_people
+        label: Team
+        type: file
+        path: content/people/_index.md
+        format: yaml-frontmatter
+        fields:
+          - name: title
+            label: Seitentitel
+            type: string
+            required: true
+          - name: intro
+            label: Einleitung (1–2 Sätze unter dem Titel)
+            type: text
+      - name: page_news
+        label: News
+        type: file
+        path: content/news/_index.md
+        format: yaml-frontmatter
+        fields:
+          - name: title
+            label: Seitentitel
+            type: string
+            required: true
+          - name: intro
+            label: Einleitung (1–2 Sätze unter dem Titel)
+            type: text
+      - name: page_publications
+        label: Publications
+        type: file
+        path: content/publications/_index.md
+        format: yaml-frontmatter
+        fields:
+          - name: title
+            label: Seitentitel
+            type: string
+            required: true
+          - name: intro
+            label: Einleitung (1–2 Sätze unter dem Titel)
+            type: text
