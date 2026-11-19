@@ -1,0 +1,44 @@
+# Technische Grundeinstellungen der Website.
+# Inhalte (Name, Texte, Kontakt) werden in data/site.yml gepflegt – bequem über Pages CMS.
+
+baseURL = "https://example.org/"   # wird beim Veröffentlichen automatisch ersetzt
+locale = "en"
+title = "Future Feedstocks for Functional Materials"
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term"]
+
+[markup.goldmark.renderer]
+  unsafe = true   # erlaubt Formatierungen aus dem Texteditor von Pages CMS
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML"]
+
+[services.rss]
+  limit = 20
+
+[menus]
+  [[menus.main]]
+    name = "Research"
+    pageRef = "/research"
+    weight = 10
+  [[menus.main]]
+    name = "Projects"
+    pageRef = "/projects"
+    weight = 15
+  [[menus.main]]
+    name = "Team"
+    pageRef = "/people"
+    weight = 20
+  [[menus.main]]
+    name = "News"
+    pageRef = "/news"
+    weight = 30
+  [[menus.main]]
+    name = "Publications"
+    pageRef = "/publications"
+    weight = 40
+  [[menus.main]]
+    name = "Contact"
+    pageRef = "/contact"
+    weight = 50

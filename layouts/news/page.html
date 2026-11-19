@@ -1,0 +1,18 @@
+{{ define "main" }}
+{{ $areas := partial "refs.html" (.Params.research_areas | default slice) }}
+{{ $people := partial "refs.html" (.Params.people | default slice) }}
+{{ $projects := partial "refs.html" (.Params.projects | default slice) }}
+<article class="wrap page">
+  <p class="crumb"><a href="{{ "news/" | relURL }}">News</a></p>
+  <header class="page__head">{{ partial "date.html" .Date }}<h1>{{ .Title }}</h1>{{ with .Params.summary }}<p class="lede">{{ . }}</p>{{ end }}</header>
+  {{ with .Params.image }}<img class="page__img" src="{{ partial "url.html" . }}" alt="">{{ end }}
+  <div class="prose">{{ .Content }}</div>
+  {{ if or $areas $people $projects }}
+  <aside class="news-links">
+    {{ with $people }}<div><h2>People</h2><ul class="mini-people">{{ range . }}<li><a href="{{ .RelPermalink }}">{{ partial "avatar.html" (dict "page" . "size" "s") }}{{ .Title }}</a></li>{{ end }}</ul></div>{{ end }}
+    {{ with $projects }}<div class="tags tags--projects"><h2>Projects</h2><ul>{{ range . }}<li><a href="{{ .RelPermalink }}">{{ .Params.acronym | default .Title }}</a></li>{{ end }}</ul></div>{{ end }}
+    {{ with $areas }}<div class="tags"><h2>Research areas</h2><ul>{{ range . }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}</ul></div>{{ end }}
+  </aside>
+  {{ end }}
+</article>
+{{ end }}

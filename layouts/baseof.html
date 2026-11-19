@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{ $s := hugo.Data.site }}
+  <title>{{ if .IsHome }}{{ $s.name }}{{ else }}{{ .Title }} – {{ $s.short_name }}{{ end }}</title>
+  <meta name="description" content="{{ with .Params.summary }}{{ . }}{{ else }}{{ $s.tagline }}{{ end }}">
+  <link rel="preload" href="{{ "fonts/archivo-latin-standard-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ "fonts/literata-latin-opsz-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+  {{ $css := resources.Get "site.css" | resources.ExecuteAsTemplate "site.css" . | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+  <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+  {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ $s.name }}">{{ end }}
+</head>
+<body class="{{ if .IsHome }}is-home{{ end }}">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-head">
+    <div class="wrap site-head__inner">
+      <a class="mark" href="{{ site.Home.RelPermalink }}" aria-label="{{ $s.name }}, home">
+        <span class="mark__short">{{ $s.short_name }}</span>
+        <span class="mark__long">{{ $s.name }}</span>
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav">
+          {{ $cur := . }}
+          {{ range site.Menus.main }}
+          <li><a href="{{ .URL }}" {{ if or ($cur.IsMenuCurrent "main" .) ($cur.HasMenuCurrent "main" .) (and .Page (eq $cur.Section .Page.Section) (ne $cur.Section "")) }}aria-current="page"{{ end }}>{{ .Name }}</a></li>
+          {{ end }}
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    {{ block "main" . }}{{ end }}
+  </main>
+  <footer class="site-foot">
+    <div class="wrap site-foot__inner">
+      <div>
+        <p class="site-foot__name">{{ $s.name }}</p>
+        <p>{{ with $s.institute_url }}<a href="{{ . }}">{{ $s.institute }}</a>{{ else }}{{ $s.institute }}{{ end }}<br>{{ $s.university }}</p>
+      </div>
+      <address>{{ $s.address | safeHTML | replaceRE "\n" "<br>" | safeHTML }}<br>{{ with $s.email }}<a href="mailto:{{ . }}">{{ . }}</a>{{ end }}</address>
+      <p class="site-foot__legal"><a href="{{ "legal/" | relURL }}">Legal notice and privacy</a></p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{{ define "main" }}
+{{ $s := hugo.Data.site }}
+{{ $items := partial "all-pubs.html" . }}
+<div class="wrap page">
+  <header class="page__head">
+    <h1>{{ .Title }}</h1>{{ with .Params.intro }}<p class="lede">{{ . }}</p>{{ end }}
+    {{ if or $s.orcid $s.scholar_url }}
+    <p class="profiles">
+      {{ with $s.scholar_url }}<a href="{{ . }}">Google Scholar profile</a>{{ end }}
+      {{ with $s.orcid }}<a href="https://orcid.org/{{ . }}">ORCID record</a>{{ end }}
+    </p>
+    {{ end }}
+  </header>
+  {{ $years := slice }}{{ range $items }}{{ $years = $years | append .year }}{{ end }}
+  {{ range sort ($years | uniq) "value" "desc" }}
+    {{ $y := . }}
+    <section class="pubyear">
+      <h2>{{ if gt $y 0 }}{{ $y }}{{ else }}Other{{ end }}</h2>
+      <ol class="pubs">{{ range sort (where $items "year" $y) "title" }}{{ partial "pub.html" . }}{{ end }}</ol>
+    </section>
+  {{ else }}
+    <p>The publication list is loaded automatically from {{ with $s.orcid }}<a href="https://orcid.org/{{ . }}">ORCID</a>{{ else }}ORCID{{ end }} when the website is published.</p>
+  {{ end }}
+</div>
+{{ end }}

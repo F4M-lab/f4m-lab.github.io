@@ -1,0 +1,28 @@
+{{ define "main" }}
+{{ $areas := partial "refs.html" (.Params.research_areas | default slice) }}
+{{ $news := partial "links-to.html" (dict "page" . "section" "news" "field" "people") }}
+{{ $projects := partial "refs.html" (.Params.projects | default slice) }}
+<article class="wrap page profile">
+  <p class="crumb"><a href="{{ "people/" | relURL }}">Team</a></p>
+  <div class="profile__grid">
+    <div class="profile__photo">{{ partial "avatar.html" (dict "page" . "size" "xl") }}</div>
+    <div>
+      <header class="page__head"><h1>{{ .Title }}</h1><p class="lede">{{ .Params.position | default .Params.role }}{{ with .Params.topic }}<br><span class="topic">{{ . }}</span>{{ end }}</p></header>
+      <dl class="contactlist">
+        {{ with .Params.email }}<dt>Email</dt><dd><a href="mailto:{{ . }}">{{ . }}</a></dd>{{ end }}
+        {{ with .Params.phone }}<dt>Phone</dt><dd><a href="tel:{{ replace . " " "" }}">{{ . }}</a></dd>{{ end }}
+        {{ with .Params.orcid }}<dt>ORCID</dt><dd><a href="https://orcid.org/{{ . }}">{{ . }}</a></dd>{{ end }}
+        {{ with .Params.website }}<dt>Web</dt><dd><a href="{{ . }}">{{ . | replaceRE "^https?://" "" }}</a></dd>{{ end }}
+      </dl>
+      {{ with $projects }}
+      <div class="tags tags--projects"><h2>Projects</h2><ul>{{ range . }}<li><a href="{{ .RelPermalink }}">{{ .Params.acronym | default .Title }}</a></li>{{ end }}</ul></div>
+      {{ end }}
+      {{ with $areas }}
+      <div class="tags"><h2>Research areas</h2><ul>{{ range . }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}</ul></div>
+      {{ end }}
+      <div class="prose">{{ .Content }}</div>
+    </div>
+  </div>
+  {{ with $news }}<section class="related"><h2>News</h2>{{ partial "news-list.html" (sort . "Date" "desc") }}</section>{{ end }}
+</article>
+{{ end }}

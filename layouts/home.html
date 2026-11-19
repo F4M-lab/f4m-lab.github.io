@@ -1,0 +1,72 @@
+{{ define "main" }}
+{{ $s := hugo.Data.site }}
+<section class="hero">
+  <div class="wrap">
+    <h1 class="hero__title">{{ $s.name }}</h1>
+    <p class="hero__tagline">{{ $s.tagline }}</p>
+  </div>
+  <div class="hero__fibres">{{ partial "fibres.svg.html" . }}</div>
+  <div class="wrap hero__legend" aria-hidden="true"><span>Feedstock</span><span>Functional material</span></div>
+</section>
+
+<section class="wrap intro">
+  <p class="intro__text">{{ $s.intro }}</p>
+  <dl class="facts">
+    <dt>Group leader</dt><dd>{{ with site.GetPage "/people/marco-beaumont" }}<a href="{{ .RelPermalink }}">{{ $s.group_leader }}</a>{{ else }}{{ $s.group_leader }}{{ end }}</dd>
+    <dt>Institute</dt><dd>{{ with $s.institute_url }}<a href="{{ . }}">{{ $s.institute }}</a>{{ else }}{{ $s.institute }}{{ end }}</dd>
+    <dt>University</dt><dd>{{ $s.university }}</dd>
+  </dl>
+</section>
+
+{{ $areas := (where site.RegularPages "Section" "research").ByWeight }}
+<section class="block">
+  <div class="wrap">
+    <div class="block__head"><h2>Research</h2><a href="{{ "research/" | relURL }}">All research areas</a></div>
+    <ul class="areas">
+    {{ range $areas }}
+      {{ $people := partial "links-to.html" (dict "page" . "section" "people" "field" "research_areas") }}
+      <li class="area">
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        <p>{{ .Params.summary }}</p>
+        {{ with $people }}<div class="area__people" aria-label="Team members">{{ range . }}<a href="{{ .RelPermalink }}" title="{{ .Title }}">{{ partial "avatar.html" (dict "page" . "size" "s") }}</a>{{ end }}</div>{{ end }}
+      </li>
+    {{ end }}
+    </ul>
+  </div>
+</section>
+
+{{ with (where site.RegularPages "Section" "projects").ByWeight }}
+<section class="block block--projects">
+  <div class="wrap">
+    <div class="block__head"><h2>Projects</h2><a href="{{ "projects/" | relURL }}">All projects</a></div>
+    {{ partial "project-list.html" . }}
+  </div>
+</section>
+{{ end }}
+
+{{ $news := first 3 (where site.RegularPages "Section" "news").ByDate.Reverse }}
+{{ with $news }}
+<section class="block block--tint">
+  <div class="wrap">
+    <div class="block__head"><h2>News</h2><a href="{{ "news/" | relURL }}">All news</a></div>
+    {{ partial "news-list.html" . }}
+  </div>
+</section>
+{{ end }}
+
+<section class="block">
+  <div class="wrap">
+    <div class="block__head"><h2>Team</h2><a href="{{ "people/" | relURL }}">Meet the team</a></div>
+    {{ partial "people-grid.html" ((where (where site.RegularPages "Section" "people") "Params.role" "ne" "Alumni").ByWeight) }}
+  </div>
+</section>
+
+{{ with $s.open_positions }}
+<section class="join">
+  <div class="wrap join__inner">
+    <h2>Join the group</h2>
+    <div><p>{{ . }}</p>{{ with $s.email }}<a class="button" href="mailto:{{ . }}?subject=Application%20F4M">Write to us</a>{{ end }}</div>
+  </div>
+</section>
+{{ end }}
+{{ end }}

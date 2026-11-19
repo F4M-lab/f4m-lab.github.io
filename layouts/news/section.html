@@ -1,0 +1,6 @@
+{{ define "main" }}
+<div class="wrap page">
+  <header class="page__head"><h1>{{ .Title }}</h1>{{ with .Params.intro }}<p class="lede">{{ . }}</p>{{ end }}</header>
+  {{ partial "news-list.html" .Pages.ByDate.Reverse }}
+</div>
+{{ end }}

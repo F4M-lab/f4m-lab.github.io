@@ -1,0 +1,32 @@
+{{ define "main" }}
+{{ $areas := partial "refs.html" (.Params.research_areas | default slice) }}
+{{ $people := partial "links-to.html" (dict "page" . "section" "people" "field" "projects") }}
+{{ $news := partial "links-to.html" (dict "page" . "section" "news" "field" "projects") }}
+<article class="wrap page">
+  <p class="crumb"><a href="{{ "projects/" | relURL }}">Projects</a></p>
+  <header class="page__head">
+    {{ with .Params.acronym }}<p class="project-acronym">{{ . }}</p>{{ end }}
+    <h1 class="{{ if .Params.acronym }}h1--sub{{ end }}">{{ .Title }}</h1>
+    <p class="lede">{{ .Params.summary }}</p>
+  </header>
+  <div class="project-grid">
+    <div>
+      {{ with .Params.image }}<img class="page__img" src="{{ partial "url.html" . }}" alt="">{{ end }}
+      <div class="prose">{{ .Content }}</div>
+    </div>
+    <aside class="factbox">
+      {{ with .Params.logo }}<img class="factbox__logo" src="{{ partial "url.html" . }}" alt="{{ $.Params.funder }}">{{ end }}
+      <dl>
+        <dt>Funding</dt><dd>{{ with .Params.funder_url }}<a href="{{ . }}">{{ $.Params.funder }}</a>{{ else }}{{ .Params.funder }}{{ end }}{{ with .Params.funding_note }}<span class="factbox__note">{{ . }}</span>{{ end }}</dd>
+        {{ with .Params.grant_id }}<dt>Grant</dt><dd>{{ . }}</dd>{{ end }}
+        {{ with .Params.start }}<dt>Duration</dt><dd>{{ (time .).Format "January 2006" }} – {{ with $.Params.end }}{{ (time .).Format "January 2006" }}{{ end }}</dd>{{ end }}
+        {{ with .Params.partners }}<dt>Partners</dt><dd>{{ . }}</dd>{{ end }}
+        {{ with .Params.link }}<dt>More information</dt><dd><a href="{{ . }}">Project page{{ if strings.Contains . "boku.ac.at" }} at BOKU{{ else if strings.Contains . "gff-noe" }} at GFF NÖ{{ end }}</a></dd>{{ end }}
+      </dl>
+    </aside>
+  </div>
+  {{ with $people }}<section class="related"><h2>Team</h2>{{ partial "people-grid.html" (sort . "Params.weight") }}</section>{{ end }}
+  {{ with $areas }}<div class="tags"><h2>Research areas</h2><ul>{{ range . }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}</ul></div>{{ end }}
+  {{ with $news }}<section class="related"><h2>News</h2>{{ partial "news-list.html" (sort . "Date" "desc") }}</section>{{ end }}
+</article>
+{{ end }}

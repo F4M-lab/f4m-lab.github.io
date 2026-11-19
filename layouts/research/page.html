@@ -1,0 +1,16 @@
+{{ define "main" }}
+{{ $people := partial "links-to.html" (dict "page" . "section" "people" "field" "research_areas") }}
+{{ $news := (partial "links-to.html" (dict "page" . "section" "news" "field" "research_areas")) }}
+{{ $projects := (partial "links-to.html" (dict "page" . "section" "projects" "field" "research_areas")) }}
+{{ $pubs := (partial "links-to.html" (dict "page" . "section" "publications" "field" "research_areas")) }}
+<article class="wrap page">
+  <p class="crumb"><a href="{{ "research/" | relURL }}">Research</a></p>
+  <header class="page__head"><h1>{{ .Title }}</h1><p class="lede">{{ .Params.summary }}</p></header>
+  {{ with .Params.image }}<img class="page__img" src="{{ partial "url.html" . }}" alt="">{{ end }}
+  <div class="prose">{{ .Content }}</div>
+  {{ with $projects }}<section class="related"><h2>Projects</h2>{{ partial "project-list.html" (sort . "Params.weight") }}</section>{{ end }}
+  {{ with $people }}<section class="related"><h2>People working on this</h2>{{ partial "people-grid.html" (sort . "Params.weight") }}</section>{{ end }}
+  {{ with $news }}<section class="related"><h2>Related news</h2>{{ partial "news-list.html" (sort . "Date" "desc") }}</section>{{ end }}
+  {{ with $pubs }}<section class="related"><h2>Publications</h2><ol class="pubs">{{ range sort . "Params.year" "desc" }}{{ partial "pub.html" (partial "pub-dict.html" .) }}{{ end }}</ol></section>{{ end }}
+</article>
+{{ end }}

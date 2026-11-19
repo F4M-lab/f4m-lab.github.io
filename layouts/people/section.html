@@ -1,0 +1,14 @@
+{{ define "main" }}
+<div class="wrap page">
+  <header class="page__head"><h1>{{ .Title }}</h1>{{ with .Params.intro }}<p class="lede">{{ . }}</p>{{ end }}</header>
+  {{ $all := .Pages }}
+  {{ range $role := slice "Group leader" "Postdoc" "PhD student" "Master student" "Student assistant" "Technician" "Visiting researcher" "Alumni" }}
+    {{ with (where $all "Params.role" $role).ByWeight }}
+    <section class="role-group">
+      <h2>{{ partial "role-plural.html" $role }}</h2>
+      {{ partial "people-grid.html" . }}
+    </section>
+    {{ end }}
+  {{ end }}
+</div>
+{{ end }}

@@ -1,0 +1,19 @@
+{{ define "main" }}
+{{ $s := hugo.Data.site }}
+<div class="wrap page">
+  <header class="page__head"><h1>{{ .Title }}</h1></header>
+  <div class="contact">
+    <div>
+      <h2>Write to us</h2>
+      {{ with $s.email }}<p class="contact__mail"><a href="mailto:{{ . }}">{{ . }}</a></p>{{ end }}
+      <p>{{ $s.group_leader }}<br>{{ $s.name }}</p>
+    </div>
+    <div>
+      <h2>Visit us</h2>
+      <address>{{ $s.institute }}<br>{{ $s.university }}<br>{{ $s.address | safeHTML | replaceRE "\n" "<br>" | safeHTML }}</address>
+    </div>
+    {{ with $s.open_positions }}<div><h2>Open positions</h2><p>{{ . }}</p></div>{{ end }}
+  </div>
+  <div class="prose">{{ .Content }}</div>
+</div>
+{{ end }}
