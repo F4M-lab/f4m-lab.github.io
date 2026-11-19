@@ -1,0 +1,5 @@
+{{- /* Förderhinweis + Laufzeit eines Projekts */ -}}
+<p class="funding">
+  Funded by {{ with .Params.funder_url }}<a href="{{ . }}">{{ $.Params.funder }}</a>{{ else }}{{ .Params.funder }}{{ end }}{{ with .Params.grant_id }}, grant {{ . }}{{ end }}
+  {{- with .Params.start }}<br><span class="funding__dates">{{ (time .).Format "Jan 2006" }} – {{ with $.Params.end }}{{ (time .).Format "Jan 2006" }}{{ end }}</span>{{ end }}
+</p>

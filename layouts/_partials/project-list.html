@@ -1,0 +1,11 @@
+<ul class="projects">
+{{ range . }}
+  <li class="project">
+    <a class="project__name" href="{{ .RelPermalink }}">{{ with .Params.acronym }}<span class="project__acronym">{{ . }}</span>{{ end }}<span class="project__title">{{ .Title }}</span></a>
+    <div class="project__body">
+      <p>{{ .Params.summary }}</p>
+      {{ partial "project-meta.html" . }}
+    </div>
+  </li>
+{{ end }}
+</ul>

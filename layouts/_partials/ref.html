@@ -1,0 +1,13 @@
+{{- /* Wandelt einen Verweis aus Pages CMS (z. B. "content/research/feedstocks.md") in eine Seite um.
+       Akzeptiert auch "research/feedstocks" oder nur "feedstocks". */ -}}
+{{- $s := strings.TrimPrefix "/" (string .) -}}
+{{- $s = strings.TrimPrefix "content/" $s -}}
+{{- $s = strings.TrimSuffix ".md" $s -}}
+{{- $s = strings.TrimSuffix "/index" $s -}}
+{{- $p := site.GetPage $s -}}
+{{- if not $p -}}
+  {{- range slice "research" "people" "news" "publications" -}}
+    {{- if not $p -}}{{- $p = site.GetPage (print . "/" $s) -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $p -}}

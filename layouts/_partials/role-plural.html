@@ -1,0 +1,2 @@
+{{- $m := dict "Group leader" "Group leader" "Postdoc" "Postdocs" "PhD student" "PhD students" "Master student" "Master students" "Student assistant" "Student assistants" "Technician" "Technical staff" "Visiting researcher" "Visiting researchers" "Alumni" "Alumni" -}}
+{{- return (index $m . | default .) -}}

@@ -1,0 +1,10 @@
+{{- $s := hugo.Data.site -}}
+{{- $last := index (last 1 (split ($s.group_leader | default "") " ")) 0 | default "" -}}
+{{- $authors := .authors | default "" -}}
+{{- if $last -}}{{- $authors = replaceRE (printf `(%s(?: [A-Z][\.\-A-Z]*)?)` $last) "<strong>$1</strong>" $authors -}}{{- end -}}
+{{- $href := .url -}}{{- with .doi -}}{{- $href = print "https://doi.org/" . -}}{{- end -}}
+<li class="pub">
+  {{ with $authors }}<span class="pub__authors">{{ . | safeHTML }}</span>{{ end }}
+  <span class="pub__title">{{ if $href }}<a href="{{ $href }}">{{ .title }}</a>{{ else }}{{ .title }}{{ end }}</span>
+  <span class="pub__venue">{{ with .journal }}<em>{{ . }}</em> {{ end }}{{ with .year }}({{ . }}){{ end }}{{ with .doi }}. doi:{{ . }}{{ end }}</span>
+</li>

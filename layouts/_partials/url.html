@@ -1,0 +1,2 @@
+{{- /* Bildpfade aus Pages CMS beginnen mit "/"; so funktionieren sie auch unter einem Unterpfad. */ -}}
+{{- return (strings.TrimPrefix "/" (string .) | relURL) -}}

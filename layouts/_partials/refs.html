@@ -1,0 +1,4 @@
+{{- /* Liste von Verweisen -> Liste von Seiten */ -}}
+{{- $out := slice -}}
+{{- range . -}}{{- with partial "ref.html" . -}}{{- $out = $out | append . -}}{{- end -}}{{- end -}}
+{{- return $out -}}

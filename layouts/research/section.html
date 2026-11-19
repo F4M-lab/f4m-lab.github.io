@@ -1,0 +1,15 @@
+{{ define "main" }}
+<div class="wrap page">
+  <header class="page__head"><h1>{{ .Title }}</h1>{{ with .Params.intro }}<p class="lede">{{ . }}</p>{{ end }}</header>
+  <ul class="areas areas--full">
+  {{ range .Pages.ByWeight }}
+    {{ $people := partial "links-to.html" (dict "page" . "section" "people" "field" "research_areas") }}
+    <li class="area">
+      <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+      <p>{{ .Params.summary }}</p>
+      {{ with $people }}<div class="area__people">{{ range . }}<a href="{{ .RelPermalink }}" title="{{ .Title }}">{{ partial "avatar.html" (dict "page" . "size" "s") }}</a>{{ end }}</div>{{ end }}
+    </li>
+  {{ end }}
+  </ul>
+</div>
+{{ end }}

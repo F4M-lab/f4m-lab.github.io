@@ -1,0 +1,11 @@
+<ul class="people">
+{{ range . }}
+  <li>
+    <a class="person" href="{{ .RelPermalink }}">
+      {{ partial "avatar.html" (dict "page" . "size" "l") }}
+      <span class="person__name">{{ .Title }}</span>
+      <span class="person__role">{{ .Params.position | default .Params.role }}</span>
+    </a>
+  </li>
+{{ end }}
+</ul>

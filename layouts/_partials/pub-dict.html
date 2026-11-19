@@ -1,0 +1,2 @@
+{{- /* Publikation aus Pages CMS (Seite) -> einheitliches Format */ -}}
+{{- return (dict "title" .Title "authors" (.Params.authors | default "") "journal" (.Params.journal | default "") "year" (int (.Params.year | default 0)) "doi" (.Params.doi | default "") "url" (.Params.url | default "")) -}}

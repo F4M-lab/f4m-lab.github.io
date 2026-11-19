@@ -1,0 +1,12 @@
+<ul class="newslist">
+{{ range . }}
+  <li class="newslist__item">
+    {{ partial "date.html" .Date }}
+    <div>
+      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
+    </div>
+    {{ with .Params.image }}<img class="newslist__img" src="{{ partial "url.html" . }}" alt="" loading="lazy">{{ end }}
+  </li>
+{{ end }}
+</ul>

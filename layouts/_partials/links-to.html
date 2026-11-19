@@ -1,0 +1,10 @@
+{{- /* Alle Seiten einer Rubrik, die im Feld .field auf die Seite .page verweisen */ -}}
+{{- $target := .page -}}{{- $field := .field -}}
+{{- $out := slice -}}
+{{- range (where site.RegularPages "Section" .section) -}}
+  {{- $p := . -}}
+  {{- range (index .Params $field | default slice) -}}
+    {{- with partial "ref.html" . -}}{{- if eq .RelPermalink $target.RelPermalink -}}{{- $out = $out | append $p -}}{{- end -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return ($out | uniq) -}}

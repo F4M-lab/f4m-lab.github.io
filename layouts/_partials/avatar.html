@@ -1,0 +1,8 @@
+{{- $p := .page -}}{{- $size := .size | default "m" -}}
+{{- if $p.Params.photo -}}
+<img class="avatar avatar--{{ $size }}" src="{{ partial "url.html" $p.Params.photo }}" alt="{{ $p.Title }}" loading="lazy">
+{{- else -}}
+{{- $parts := split $p.Title " " -}}
+{{- $ini := "" -}}{{- range first 1 $parts -}}{{- $ini = substr . 0 1 -}}{{- end -}}{{- range last 1 $parts -}}{{- if gt (len $parts) 1 -}}{{- $ini = print $ini (substr . 0 1) -}}{{- end -}}{{- end -}}
+<span class="avatar avatar--{{ $size }} avatar--initials" aria-hidden="true">{{ $ini }}</span>
+{{- end -}}
