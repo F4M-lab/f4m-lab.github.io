@@ -1,14 +1,14 @@
 name: Future Feedstocks for Functional Materials
 short_name: F4M
 group_leader: Marco Beaumont
-tagline: We turn underused biomass and waste streams into functional, high-performance materials.
-intro: >-
-  The F4M group develops selective, resource-efficient chemical and physical routes
-  that turn overlooked biomass – aquatic plants and reed, straw and bagasse, insect
-  farming residues – into functional materials. We work with cellulose, chitin, proteins
-  and lignin, from green modification chemistry to nanofibrils, hydrogels, aerogels,
-  bioplastics and 3D-printable composites, and we link molecular design to the
-  properties of the final material.
+tagline: We turn underused biomass and waste streams into functional,
+  high-performance materials.
+intro: The F4M group develops selective, resource-efficient chemical and
+  physical routes that turn overlooked biomass – aquatic plants and reed, straw
+  and bagasse, insect farming residues – into functional materials. We work with
+  cellulose, chitin, proteins and lignin, from green modification chemistry to
+  nanofibrils, hydrogels, aerogels, bioplastics and 3D-printable composites, and
+  we link molecular design to the properties of the final material.
 institute: Institute of Chemistry of Renewable Resources
 institute_url: https://boku.ac.at/en/nwnr/chnr
 university: BOKU University, Vienna
@@ -17,16 +17,15 @@ address: |-
   3430 Tulln an der Donau
   Austria
 email: marco.beaumont@boku.ac.at
-orcid: 0000-0003-1779-9923
-scholar_url: ""
-open_positions: >-
-  We regularly look for motivated master students, PhD candidates and postdocs.
-  If you want to work with us, send a short motivation letter and your CV.
+orcid: 0000-0002-2571-497X
+scholar_url: https://scholar.google.com/citations?user=-e7bf8sAAAAJ
+open_positions: We regularly look for motivated master students, PhD candidates
+  and postdocs. If you want to work with us, send a short motivation letter and
+  your CV.
 legal_notice: |-
   Medieninhaber und für den Inhalt verantwortlich: Marco Beaumont,
   Institute of Chemistry of Renewable Resources, BOKU University.
-  Bitte vor der Veröffentlichung prüfen und ergänzen.
-privacy: >-
-  This website does not use cookies, analytics or tracking. Fonts are served from
-  this website, not from third parties. The site is hosted on GitHub Pages; GitHub
-  may log visitors' IP addresses for security purposes (see the GitHub Privacy Statement).
+privacy: This website does not use cookies, analytics or tracking. Fonts are
+  served from this website, not from third parties. The site is hosted on GitHub
+  Pages; GitHub may log visitors' IP addresses for security purposes (see the
+  GitHub Privacy Statement).
