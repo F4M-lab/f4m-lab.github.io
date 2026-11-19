@@ -1,0 +1,51 @@
+# Baut die Website bei jeder Änderung (auch aus Pages CMS) und veröffentlicht sie auf GitHub Pages.
+name: Website veröffentlichen
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "17 4 * * 1"   # jeden Montag: Publikationsliste aus ORCID aktualisieren
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.170.1
+    steps:
+      - name: Hugo installieren
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
+          sudo dpkg -i ${{ runner.temp }}/hugo.deb
+      - uses: actions/checkout@v4
+      - name: Publikationen von ORCID holen
+        run: python3 scripts/fetch_orcid.py
+      - id: pages
+        uses: actions/configure-pages@v5
+      - name: Website bauen
+        env:
+          HUGO_ENVIRONMENT: production
+        run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
