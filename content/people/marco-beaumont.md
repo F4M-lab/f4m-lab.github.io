@@ -2,12 +2,10 @@
 title: Marco Beaumont
 role: Group leader
 position: Group leader
-topic: "Future feedstocks for functional materials"
-photo: ""
-email: "marco.beaumont@boku.ac.at"
-phone: ""
-orcid: "0000-0003-1779-9923"
-website: ""
+topic: Future feedstocks for functional materials
+email: marco.beaumont@boku.ac.at
+orcid: 0000-0002-2571-497X
+website: https://scholar.google.com/citations?user=-e7bf8sAAAAJ
 research_areas:
   - content/research/feedstocks.md
   - content/research/modification.md
