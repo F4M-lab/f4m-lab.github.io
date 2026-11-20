@@ -366,6 +366,45 @@ content:
         description: Vor dem Live-Gang mit den BOKU-Vorgaben abgleichen.
         type: text
 
+  - name: home
+    label: "Startseite: vier Skalen"
+    type: file
+    path: data/home.yml
+    format: yaml
+    fields:
+      - name: feedstock_title
+        label: "1. Bild (Pflanze): Überschrift"
+        type: string
+      - name: feedstock_text
+        label: "1. Bild (Pflanze): Text"
+        type: text
+      - name: molecule_title
+        label: "2. Bild (Cellulosekette): Überschrift"
+        type: string
+      - name: molecule_text
+        label: "2. Bild (Cellulosekette): Text"
+        type: text
+      - name: nanofibril_title
+        label: "3. Bild (Nanofibrille): Überschrift"
+        type: string
+      - name: nanofibril_text
+        label: "3. Bild (Nanofibrille): Text"
+        type: text
+      - name: material_title
+        label: "4. Bild (Material): Überschrift"
+        type: string
+      - name: material_text
+        label: "4. Bild (Material): Text"
+        type: text
+      - name: legend_make
+        label: "Legende, Pfeil nach rechts"
+        description: "z. B. making: from feedstock to material"
+        type: string
+      - name: legend_understand
+        label: "Legende, Pfeil nach links"
+        description: "z. B. understanding: from properties back to structure"
+        type: string
+
   - name: pages
     label: Seitentexte (Überschrift und Einleitung)
     type: group
