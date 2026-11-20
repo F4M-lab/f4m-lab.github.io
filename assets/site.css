@@ -62,21 +62,63 @@ p { margin: 0 0 1em; }
 .nav a:hover, .nav a[aria-current="page"] { border-bottom-color: var(--straw); }
 @media (max-width: 40rem) { .mark__long { display: none; } .nav { gap: .2rem 1rem; font-size: .95rem; } }
 
-/* Startbild: Faserband von wirr (Rohstoff) zu geordnet (Material) */
-.hero { padding: clamp(2.5rem, 7vw, 6rem) 0 0; overflow: hidden; }
-.hero__title { font-size: clamp(2.7rem, 8.4vw, 7.4rem); font-weight: 850; font-stretch: 118%; line-height: .94; letter-spacing: -.035em; max-width: 11ch; }
-.hero__tagline { font-size: clamp(1.15rem, 2vw, 1.5rem); line-height: 1.45; max-width: 34ch; margin: 1.6rem 0 0; color: var(--moss); }
-.hero__fibres { margin-top: clamp(1.5rem, 4vw, 3rem); height: clamp(150px, 20vw, 260px); }
-.fibres { width: 100%; height: 100%; display: block; }
-.fibres path { fill: none; stroke-width: 1.1; vector-effect: non-scaling-stroke; stroke-linecap: round; }
-.fibres .i { stroke: var(--ink); opacity: .55; }
-.fibres .m { stroke: var(--moss); opacity: .7; }
-.fibres .s { stroke: var(--straw); stroke-width: 2; opacity: 1; }
+/* Startbild (seit 20.11.2026): Logo aus Fasern (Canvas, assets/home.js) neben dem Titel,
+   darunter vier Größenskalen: Feedstock, Molecule, Nanofibril, Material. */
+.hero { padding: clamp(1.25rem, 3.5vw, 2.75rem) 0 clamp(2.5rem, 6vw, 4rem); }
+.hero__top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 1rem clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
+.hero__logo { position: relative; height: clamp(150px, 21vw, 260px); display: grid; place-items: center; }
+.hero__logo canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; }
+.hero__logo-text { font: 900 clamp(4rem, 13vw, 9.5rem)/1 var(--sans); font-stretch: 125%; letter-spacing: -.02em; }
+.hero__logo.is-live { -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent); }
+.hero__logo.is-live .hero__logo-text { visibility: hidden; }
+.hero__title { font-size: clamp(1.7rem, 3.5vw, 2.9rem); font-weight: 800; font-stretch: 112%; line-height: 1.04; letter-spacing: -.025em; max-width: 16ch; }
+.hero__tagline { font-size: clamp(1.05rem, 1.6vw, 1.3rem); line-height: 1.45; max-width: 34ch; margin: 1rem 0 0; color: var(--moss); }
+.hero__replay { margin-top: 1rem; font: 500 .85rem var(--sans); color: var(--moss); background: none; border: 1px solid var(--rule); border-radius: 999px; padding: .3rem .85rem; cursor: pointer; }
+.hero__replay:hover { border-color: var(--ink); color: var(--ink); }
+@media (max-width: 44rem) { .hero__top { grid-template-columns: 1fr; } }
+
+.scales__row { list-style: none; margin: clamp(2rem, 5vw, 3.5rem) 0 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr); gap: 0 clamp(.4rem, 1.2vw, 1rem); align-items: start; }
+.scales__step { display: block; text-decoration: none; }
+.scales__step svg { width: 100%; max-width: 17rem; height: auto; display: block; overflow: visible; }
+.scales__step h2 { font-size: clamp(1.15rem, 1.8vw, 1.5rem); font-stretch: 110%; margin-top: .9rem; }
+a.scales__step h2 { text-decoration: underline; text-decoration-color: var(--straw); text-decoration-thickness: 2px; text-underline-offset: .22em; }
+a.scales__step:hover h2 { text-decoration-color: var(--ink); }
+.scales__step p { margin: .5rem 0 0; font-size: .92em; line-height: 1.5; color: var(--moss); max-width: 25ch; }
+.scales__arrow { width: clamp(1.5rem, 2.6vw, 2.4rem); margin-top: clamp(2.2rem, 5.6vw, 4.6rem); }
+.scales__arrow svg { width: 100%; height: auto; display: block; overflow: visible; }
+.scales__legend { display: flex; flex-wrap: wrap; gap: .4rem 2.2rem; margin: clamp(1.5rem, 3.5vw, 2.5rem) 0 0; font: 500 .92rem/1.4 var(--sans); color: var(--moss); }
+.scales__legend span { display: inline-flex; align-items: center; gap: .6rem; }
+.scales__legend svg { width: 2.1rem; height: auto; overflow: visible; flex: none; }
+.scales .d { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.scales .d.m { stroke: var(--moss); }
+.scales .d.thin { stroke-width: 1.2; }
+.scales .d.s { stroke: var(--straw); stroke-width: 2.6; }
+.scales .d.bond { stroke-width: 1.7; }
+.scales .d.bond.s { stroke-width: 2.3; }
+.scales .d.graft { stroke: var(--straw); stroke-width: 1.6; }
+.scales .d.under { stroke: var(--paper); }
+.scales .d.shell { stroke: var(--straw); opacity: .7; }
+.scales .d.bar { stroke: var(--moss); stroke-width: 1.2; }
+.scales .dot { fill: var(--straw); }
+.scales .lab { font: 600 9.5px var(--sans); fill: var(--ink); }
+.scales .cap { font: 500 8.5px var(--sans); fill: var(--moss); }
 @media (prefers-reduced-motion: no-preference) {
-  .fibres path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.4s cubic-bezier(.3,.1,.2,1) var(--d, 0s) forwards; }
+  .scales .d { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.1s cubic-bezier(.4, 0, .2, 1) forwards; animation-delay: calc(var(--i, 0) * .5s + var(--j, 0) * .07s); }
+  .scales .lab, .scales .cap, .scales .dot { opacity: 0; animation: pop .5s ease-out forwards; animation-delay: calc(var(--i, 0) * .5s + 1.1s); }
 }
+.scales .d.stub { stroke-dasharray: 2.4 2.8; stroke-dashoffset: 0; animation: none; }
 @keyframes draw { to { stroke-dashoffset: 0; } }
-.hero__legend { display: flex; justify-content: space-between; font: 500 .85rem/1 var(--sans); color: var(--moss); padding-top: .7rem; padding-bottom: .2rem; }
+@keyframes pop { to { opacity: 1; } }
+@media (max-width: 62rem) {
+  .scales__row { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); row-gap: 2.2rem; }
+  .scales__arrow { width: clamp(1.6rem, 5vw, 2.6rem); margin-top: clamp(3rem, 12vw, 6rem); }
+  .scales__arrow--wrap { display: none; }
+}
+@media (max-width: 40rem) {
+  .scales__row { grid-template-columns: 1fr; gap: 0; }
+  .scales__arrow, .scales__arrow--wrap { width: 100%; max-width: 17rem; margin: 1rem 0; display: flex; justify-content: center; }
+  .scales__arrow svg { width: 2.2rem; transform: rotate(90deg); }
+}
 
 /* Einleitung */
 .intro { display: grid; gap: 2rem 4rem; padding-top: clamp(2.5rem, 6vw, 4.5rem); padding-bottom: clamp(2.5rem, 6vw, 4.5rem); }

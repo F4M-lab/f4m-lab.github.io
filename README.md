@@ -33,7 +33,7 @@ Nach jedem Speichern in Pages CMS ist die Änderung nach ca. 1–2 Minuten onlin
 7. **Eingabemaske verbinden:** https://pagescms.org → *Sign in with GitHub* → Zugriff auf das
    Repository erlauben → Repository öffnen. Links erscheinen die Bereiche
    *Mitarbeiter, News, Projekte, Forschungsbereiche, Publikationen, Einstellungen & Startseite,
-   Seitentexte*.
+   Startseite: vier Skalen, Seitentexte*.
 
 ## Laufende Pflege
 
@@ -45,7 +45,8 @@ Nach jedem Speichern in Pages CMS ist die Änderung nach ca. 1–2 Minuten onlin
 | Publikationen | **Automatisch:** Jeden Montag wird die Liste aus ORCID (iD in *Einstellungen*) übernommen, Autor*innen kommen von Crossref. Neue Papers also einfach in ORCID eintragen (oder ORCID mit Crossref verknüpfen). Sofort aktualisieren: im Repository *Actions* → „Website veröffentlichen“ → *Run workflow*. |
 | Zusätzliche Publikation | *Publikationen* → *Add an entry* (z. B. Beiträge, die nicht in ORCID stehen, oder um einen ORCID-Eintrag einem Forschungsbereich zuzuordnen – gleiche DOI eintragen, dann erscheint er nur einmal) |
 | Projekt anlegen oder ändern | *Projekte* → Fördergeber immer mit Link angeben |
-| Texte der Startseite, Kontakt, Impressum, Datenschutz | *Einstellungen & Startseite* |
+| Texte der Startseite (Leitsatz, Einleitung), Kontakt, Impressum, Datenschutz | *Einstellungen & Startseite* |
+| Die vier Bilder oben auf der Startseite (Feedstock, Molecule, Nanofibril, Material): Überschriften, Texte und die zwei Zeilen der Legende | *Startseite: vier Skalen*. Die Zeichnungen selbst und das Logo aus Fasern stehen in `assets/home.js`. |
 | Überschrift und Einleitung der Seiten Research, Projects, Team, News, Publications | *Seitentexte* |
 | Masterarbeiten | Gruppe **Master student**, Feld *Thema* leer lassen (Themen von Masterarbeiten stehen nicht auf der Website) |
 
